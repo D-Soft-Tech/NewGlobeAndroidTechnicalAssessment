@@ -5,15 +5,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bridge.androidtechnicaltest.R
-import com.bridge.androidtechnicaltest.ui.pupillist.PupilListFragment
-import com.bridge.androidtechnicaltest.ui.pupillist.PupilListViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-
-    // TODO: Inject PupilListRxViewModel for RxJava implementation or use PupilListViewModel for coroutine
-    private val pupilListViewModel by viewModel<PupilListViewModel>()
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_reset) {
-            pupilListViewModel.syncPupils()
+            TODO("Implement actions")
         }
         return super.onOptionsItemSelected(item)
     }

@@ -4,18 +4,22 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bridge.androidtechnicaltest.App;
 import com.bridge.androidtechnicaltest.R;
 import com.bridge.androidtechnicaltest.db.PupilDao;
+import com.bridge.androidtechnicaltest.db.PupilList;
 import com.bridge.androidtechnicaltest.network.PupilService;
-import com.bridge.androidtechnicaltest.ui.pupillist.PupilListFragment;
-import com.bridge.androidtechnicaltest.ui.pupillist.PupilListViewModel;
-import com.bridge.androidtechnicaltest.ui.pupillist.PupilListViewModelFactory;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableCompletableObserver;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,16 +29,12 @@ public class MainActivity extends AppCompatActivity {
     PupilDao pupilDao;
     @Inject
     PupilService pupilService;
-    @Inject
-    PupilListViewModelFactory pupilListViewModelFactory;
-    private PupilListViewModel pupilListViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((App) getApplication()).getApplicationComponent().inject(this);
         setContentView(R.layout.activity_main);
-        initViewModel();
 
         if (savedInstanceState == null) {
             FragmentManager fm = getSupportFragmentManager();
@@ -61,11 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetApiData() {
-        pupilListViewModel.syncPupils();
-    }
 
-    private void initViewModel() {
-        pupilListViewModel =  pupilListViewModelFactory.create(PupilListViewModel.class);
     }
 
     private void onDataResetFailed() {
@@ -76,9 +72,5 @@ public class MainActivity extends AppCompatActivity {
     private void onDataReset() {
         Snackbar.make(findViewById(R.id.main_layout),
                 R.string.data_reset, Snackbar.LENGTH_SHORT).show();
-    }
-
-    public PupilListViewModel getPupilListViewModel() {
-        return pupilListViewModel;
     }
 }

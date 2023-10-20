@@ -4,8 +4,6 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.bridge.androidtechnicaltest.model.PupilUi;
-
 @Entity(tableName = "Pupils")
 public class Pupil {
     @PrimaryKey
@@ -94,13 +92,5 @@ public class Pupil {
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';
-    }
-
-    public PupilUi toPupilUi() {
-        return new PupilUi(
-                pupilId,
-                name,
-                value
-        );
     }
 }
