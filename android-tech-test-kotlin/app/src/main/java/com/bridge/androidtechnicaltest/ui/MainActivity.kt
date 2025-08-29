@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_reset) {
-            TODO("Implement actions")
+            // TODO("Implement actions")
         }
         return super.onOptionsItemSelected(item)
     }
