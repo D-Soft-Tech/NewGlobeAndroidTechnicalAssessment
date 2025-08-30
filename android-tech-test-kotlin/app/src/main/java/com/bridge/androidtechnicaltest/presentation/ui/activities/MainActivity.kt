@@ -1,21 +1,18 @@
-package com.bridge.androidtechnicaltest.ui
+package com.bridge.androidtechnicaltest.presentation.ui.activities
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.bridge.androidtechnicaltest.R
+import com.bridge.androidtechnicaltest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-            val fm = supportFragmentManager
-            fm.beginTransaction()
-                    .add(R.id.container, PupilListFragment())
-                    .commit()
-        }
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

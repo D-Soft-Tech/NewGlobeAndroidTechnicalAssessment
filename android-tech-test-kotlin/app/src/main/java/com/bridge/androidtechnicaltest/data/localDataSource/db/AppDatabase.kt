@@ -1,4 +1,4 @@
-package com.bridge.androidtechnicaltest.db
+package com.bridge.androidtechnicaltest.data.localDataSource.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

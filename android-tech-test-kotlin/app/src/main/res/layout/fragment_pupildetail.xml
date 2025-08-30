@@ -1,81 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-			  android:padding="@dimen/activity_horizontal_margin">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.fragments.PupilDetailFragment">
 
-	<ImageView
-		android:id="@+id/pupil_image"
-		android:layout_width="80dp"
-		android:layout_height="80dp"/>
+    <data>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+    </data>
 
-		<TextView
-			style="@style/TextDetail"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@string/pupil_detail_id"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dimen_20dp"
+        android:background="@color/white">
 
-		<TextView
-			style="@style/TextDetail"
-			android:id="@+id/pupil_id"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			tools:text="123"/>
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/pupil_details"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-	</LinearLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-		<TextView
-			style="@style/TextDetail"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@string/pupil_detail_name"/>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="@dimen/dimen_80dp"
+                    android:layout_height="@dimen/dimen_80dp"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:background="@drawable/profile_pic_bg"
+                    android:contentDescription="@string/pupil_profile_picture"
+                    android:src="@drawable/boy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-		<TextView
-			style="@style/TextDetail"
-			android:id="@+id/pupil_name"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			tools:text="Abigayle Quigley"/>
+                <TextView
+                    android:id="@+id/full_name_label"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:text="@string/full_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-	</LinearLayout>
+                <TextView
+                    android:id="@+id/full_name_value"
+                    style="@style/details_value_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/full_name_label"
+                    app:layout_constraintTop_toBottomOf="@+id/full_name_label"
+                    tools:text="John Doe" />
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
 
-		<TextView
-			style="@style/TextDetail"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@string/pupil_detail_country"/>
+                <TextView
+                    android:id="@+id/pupil_id_label"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:text="@string/pupil_id"
+                    app:layout_constraintStart_toStartOf="@+id/full_name_label"
+                    app:layout_constraintTop_toBottomOf="@+id/full_name_value" />
 
-		<TextView
-			style="@style/TextDetail"
-			android:id="@+id/country"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			tools:text="India"/>
+                <TextView
+                    android:id="@+id/pupil_id_value"
+                    style="@style/details_value_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:layout_marginEnd="@dimen/dimen_5dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_1"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/full_name_label"
+                    app:layout_constraintTop_toBottomOf="@+id/pupil_id_label"
+                    tools:text="PID 2385" />
 
-	</LinearLayout>
+                <TextView
+                    android:id="@+id/parent_phone_label"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:text="@string/parent_guardian_phone"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_1"
+                    app:layout_constraintTop_toTopOf="@+id/pupil_id_label" />
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/parent_phone_value"
+                    style="@style/details_value_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/pupil_id_value"
+                    app:layout_constraintEnd_toEndOf="@+id/full_name_value"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/parent_phone_label"
+                    app:layout_constraintTop_toTopOf="@+id/pupil_id_value"
+                    tools:text="09075771869" />
+
+                <TextView
+                    android:id="@+id/class_label"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:text="@string/pupil_class"
+                    app:layout_constraintStart_toStartOf="@+id/pupil_id_value"
+                    app:layout_constraintTop_toBottomOf="@+id/pupil_id_value" />
+
+                <TextView
+                    android:id="@+id/class_value"
+                    style="@style/details_value_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/class_label"
+                    app:layout_constraintTop_toBottomOf="@+id/class_label"
+                    tools:text="Grade 10 - Section A" />
+
+                <TextView
+                    android:id="@+id/address_label"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:text="@string/address"
+                    app:layout_constraintStart_toStartOf="@+id/class_label"
+                    app:layout_constraintTop_toBottomOf="@+id/class_value" />
+
+                <TextView
+                    android:id="@+id/address_value"
+                    style="@style/details_value_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/class_value"
+                    app:layout_constraintTop_toBottomOf="@+id/address_label"
+                    tools:text="@string/sample_address" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3" />
+
+                <TextView
+                    android:id="@+id/age_label"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:text="@string/age"
+                    app:layout_constraintStart_toStartOf="@+id/address_value"
+                    app:layout_constraintTop_toBottomOf="@+id/address_value" />
+
+                <TextView
+                    android:id="@+id/age_value"
+                    style="@style/details_value_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:layout_marginEnd="@dimen/dimen_5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_2"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/age_label"
+                    app:layout_constraintTop_toBottomOf="@+id/age_label"
+                    tools:text="@string/_10_years" />
+
+                <TextView
+                    android:id="@+id/country_label"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:text="@string/country"
+                    app:layout_constraintStart_toEndOf="@+id/guideline_2"
+                    app:layout_constraintTop_toBottomOf="@+id/address_value" />
+
+                <TextView
+                    android:id="@+id/country_value"
+                    style="@style/details_value_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/guideline_2"
+                    app:layout_constraintTop_toBottomOf="@+id/country_label"
+                    tools:text="Nigeria" />
+
+                <ImageView
+                    android:id="@+id/delete_pupil_record_icon"
+                    android:layout_width="@dimen/dimen_35dp"
+                    android:layout_height="@dimen/dimen_35dp"
+                    android:layout_marginTop="@dimen/dimen_40dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/delete_icon"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_1"
+                    app:layout_constraintStart_toStartOf="@+id/address_value"
+                    app:layout_constraintTop_toBottomOf="@+id/age_value" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:layout_marginBottom="@dimen/dimen_40dp"
+                    android:text="@string/delete"
+                    android:textSize="@dimen/dimen_16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/delete_pupil_record_icon"
+                    app:layout_constraintStart_toStartOf="@+id/delete_pupil_record_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/delete_pupil_record_icon" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="@dimen/dimen_35dp"
+                    android:layout_height="@dimen/dimen_35dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/edit_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/delete_pupil_record_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_1"
+                    app:layout_constraintTop_toTopOf="@+id/delete_pupil_record_icon" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    style="@style/details_label_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit"
+                    android:textSize="@dimen/dimen_16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView15"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/imageView4"
+                    app:layout_constraintTop_toBottomOf="@+id/delete_pupil_record_icon" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

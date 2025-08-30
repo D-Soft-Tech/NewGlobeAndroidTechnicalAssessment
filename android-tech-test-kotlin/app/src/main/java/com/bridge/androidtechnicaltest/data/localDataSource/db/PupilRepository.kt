@@ -1,6 +1,6 @@
-package com.bridge.androidtechnicaltest.db
+package com.bridge.androidtechnicaltest.data.localDataSource.db
 
-import com.bridge.androidtechnicaltest.network.PupilApi
+import com.bridge.androidtechnicaltest.data.remoteDataSource.network.PupilApi
 import retrofit2.Response
 
 interface IPupilRepository {

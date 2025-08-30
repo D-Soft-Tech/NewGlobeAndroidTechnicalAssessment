@@ -2,8 +2,8 @@ package com.bridge.androidtechnicaltest.di
 
 import android.content.Context
 import androidx.room.Room
-import com.bridge.androidtechnicaltest.db.AppDatabase
-import com.bridge.androidtechnicaltest.network.PupilApi
+import com.bridge.androidtechnicaltest.data.localDataSource.db.AppDatabase
+import com.bridge.androidtechnicaltest.data.remoteDataSource.network.PupilApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

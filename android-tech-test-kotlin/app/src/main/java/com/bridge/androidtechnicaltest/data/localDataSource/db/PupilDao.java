@@ -1,4 +1,4 @@
-package com.bridge.androidtechnicaltest.db;
+package com.bridge.androidtechnicaltest.data.localDataSource.db;
 
 import androidx.room.Dao;
 import androidx.room.Query;

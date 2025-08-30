@@ -1,6 +1,6 @@
-package com.bridge.androidtechnicaltest.network
+package com.bridge.androidtechnicaltest.data.remoteDataSource.network
 
-import com.bridge.androidtechnicaltest.db.PupilList
+import com.bridge.androidtechnicaltest.data.localDataSource.db.PupilList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

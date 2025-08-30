@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav_graph"
+    app:startDestination="@id/pupilListFragment">
+
+    <fragment
+        android:id="@+id/pupilListFragment"
+        android:name="com.bridge.androidtechnicaltest.presentation.ui.fragments.PupilListFragment"
+        android:label="fragment_pupillist"
+        tools:layout="@layout/fragment_pupillist" >
+        <action
+            android:id="@+id/action_pupilListFragment_to_pupilDetailFragment"
+            app:destination="@id/pupilDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_pupilListFragment_to_createOrEditPupilDetailsFragment"
+            app:destination="@id/createOrEditPupilDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/pupilDetailFragment"
+        android:name="com.bridge.androidtechnicaltest.presentation.ui.fragments.PupilDetailFragment"
+        android:label="fragment_pupildetail"
+        tools:layout="@layout/fragment_pupildetail" >
+        <action
+            android:id="@+id/action_pupilDetailFragment_to_createOrEditPupilDetailsFragment"
+            app:destination="@id/createOrEditPupilDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/createOrEditPupilDetailsFragment"
+        android:name="com.bridge.androidtechnicaltest.presentation.ui.fragments.CreateOrEditPupilDetailsFragment"
+        android:label="fragment_edit_pupil_details"
+        tools:layout="@layout/fragment_edit_pupil_details" />
+</navigation>
