@@ -37,10 +37,19 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="pupilModel"
+            app:argType="com.bridge.androidtechnicaltest.domain.models.PupilModel" />
     </fragment>
     <fragment
         android:id="@+id/createOrEditPupilDetailsFragment"
         android:name="com.bridge.androidtechnicaltest.presentation.ui.fragments.CreateOrEditPupilDetailsFragment"
         android:label="fragment_edit_pupil_details"
-        tools:layout="@layout/fragment_edit_pupil_details" />
+        tools:layout="@layout/fragment_edit_pupil_details" >
+        <argument
+            android:name="pupilModel"
+            app:argType="com.bridge.androidtechnicaltest.domain.models.PupilModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

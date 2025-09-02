@@ -5,35 +5,62 @@
     tools:context=".presentation.ui.fragments.PupilDetailFragment">
 
     <data>
-
+        <variable
+            name="pupilDetail"
+            type="com.bridge.androidtechnicaltest.domain.models.PupilModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/dimen_20dp"
         android:background="@color/white">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_10dp"
-            android:fontFamily="@font/poppins_bold"
-            android:text="@string/pupil_details"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_20sp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:contentDescription="@string/go_back"
+                android:scaleType="fitXY"
+                android:src="@drawable/back_arrow"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+                app:layout_constraintStart_toStartOf="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/pupil_details"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+        </androidx.appcompat.widget.Toolbar>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dimen_10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
@@ -47,7 +74,8 @@
                     android:layout_marginTop="@dimen/dimen_20dp"
                     android:background="@drawable/profile_pic_bg"
                     android:contentDescription="@string/pupil_profile_picture"
-                    android:src="@drawable/boy"
+                    android:loadImageFromUrl="@{pupilDetail.image}"
+                    tools:src="@drawable/boy"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +96,7 @@
                     style="@style/details_value_style"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:text="@{pupilDetail.name}"
                     android:layout_marginTop="@dimen/dimen_5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -99,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_5dp"
                     android:layout_marginEnd="@dimen/dimen_5dp"
+                    android:text="@{@string/pupil_id_placeholder(String.valueOf(pupilDetail.pupilId))}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_1"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/full_name_label"
@@ -120,6 +150,7 @@
                     style="@style/details_value_style"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:text="@{pupilDetail.guardianPhoneNumber}"
                     app:layout_constraintBottom_toBottomOf="@+id/pupil_id_value"
                     app:layout_constraintEnd_toEndOf="@+id/full_name_value"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -142,6 +173,7 @@
                     style="@style/details_value_style"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:text="@{pupilDetail.pupilClass}"
                     android:layout_marginTop="@dimen/dimen_5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -165,6 +197,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_5dp"
+                    android:text="@{pupilDetail.address}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/class_value"
@@ -195,6 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_5dp"
                     android:layout_marginEnd="@dimen/dimen_5dp"
+                    android:text="@{@string/age_place_holder(String.valueOf(pupilDetail.age))}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_2"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -220,6 +254,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_5dp"
                     android:layout_marginTop="@dimen/dimen_5dp"
+                    android:text="@{pupilDetail.country}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/guideline_2"
@@ -252,7 +287,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/delete_pupil_record_icon" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/edit_pupil_details_icon"
                     android:layout_width="@dimen/dimen_35dp"
                     android:layout_height="@dimen/dimen_35dp"
                     android:contentDescription="@null"
@@ -270,8 +305,8 @@
                     android:text="@string/edit"
                     android:textSize="@dimen/dimen_16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView15"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                    app:layout_constraintStart_toStartOf="@+id/imageView4"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_pupil_details_icon"
+                    app:layout_constraintStart_toStartOf="@+id/edit_pupil_details_icon"
                     app:layout_constraintTop_toBottomOf="@+id/delete_pupil_record_icon" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

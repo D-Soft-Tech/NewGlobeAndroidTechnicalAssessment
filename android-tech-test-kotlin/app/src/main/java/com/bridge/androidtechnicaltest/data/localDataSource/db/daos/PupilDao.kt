@@ -1,0 +1,26 @@
+package com.bridge.androidtechnicaltest.data.localDataSource.db.daos;
+
+import androidx.paging.PagingSource
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Upsert
+import com.bridge.androidtechnicaltest.data.localDataSource.entities.PupilEntity
+import com.bridge.androidtechnicaltest.domain.models.PupilModel
+
+@Dao
+public interface PupilDao {
+    @Upsert
+    suspend fun insertPupils(pupils: List<PupilEntity>): List<Long>
+
+    @Query("SELECT * FROM PupilTable ORDER BY pupilId ASC")
+    fun fetchPupils(): PagingSource<Int, PupilModel>
+
+    @Query("SELECT * FROM PUPILTABLE WHERE pupilId = :pupilId")
+    suspend fun fetchPupilById(pupilId: Int): PupilEntity
+
+    @Query("DELETE FROM PupilTable WHERE pupilId = :pupilId")
+    suspend fun deletePupilRecord(pupilId: Int): Int
+
+    @Query("DELETE FROM PupilTable")
+    suspend fun deleteAllPupilRecords(): Int
+}
