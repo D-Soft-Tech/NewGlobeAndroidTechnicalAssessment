@@ -3,17 +3,12 @@ package com.bridge.androidtechnicaltest.presentation.ui.fragments
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +28,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PupilListFragment : Fragment(), MenuProvider {
+class PupilListFragment : Fragment() {
     private lateinit var binding: FragmentPupillistBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
@@ -58,11 +53,17 @@ class PupilListFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        requireActivity().addMenuProvider(
-            this,
-            viewLifecycleOwner,
-            Lifecycle.State.CREATED
-        )
+        binding.toolbar.inflateMenu(R.menu.main_menu)
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_reset -> {
+                    syncDataViewModel.synchronizeData()
+                    true
+                }
+
+                else -> false
+            }
+        }
         loaderAlertDialog = AppUtils.getLoadingAlertDialog(requireContext())
         pupilPagingAdapter = pupilPagingAdapterFactory.createPupilPagingAdapter {
             val action =
@@ -142,16 +143,5 @@ class PupilListFragment : Fragment(), MenuProvider {
             this@PupilListFragment.searchView = this.searchView
             fab = floatingActionButton
         }
-    }
-
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.main_menu, menu)
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == R.id.action_reset) {
-            syncDataViewModel.synchronizeData()
-        }
-        return true
     }
 }
