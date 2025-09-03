@@ -13,6 +13,7 @@ import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +58,11 @@ class PupilListFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        requireActivity().addMenuProvider(
+            this,
+            viewLifecycleOwner,
+            Lifecycle.State.CREATED
+        )
         loaderAlertDialog = AppUtils.getLoadingAlertDialog(requireContext())
         pupilPagingAdapter = pupilPagingAdapterFactory.createPupilPagingAdapter {
             val action =
@@ -114,7 +120,11 @@ class PupilListFragment : Fragment(), MenuProvider {
             }
         ) {
             val message =
-                if (it) getString(R.string.all_data_successfully_backed_up) else getString(R.string._of_completed)
+                if (it.first == it.second) getString(R.string.all_data_successfully_backed_up) else getString(
+                    R.string._of_completed,
+                    it.first.toString(),
+                    it.second.toString()
+                )
             loaderAlertDialog?.dismiss()
             requireContext().createAlertDialog(
                 getString(R.string.sync_completed),

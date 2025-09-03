@@ -15,7 +15,9 @@ class PupilSyncWorker @AssistedInject constructor(
     private val pupilsDataSyncManager: PupilsDataSyncManager
 ) : CoroutineWorker(context, workParams) {
     override suspend fun doWork(): Result {
-        val containsAtLeastOneFailedResponse = pupilsDataSyncManager.syncData()
+        val containsAtLeastOneFailedResponse = pupilsDataSyncManager.syncData().let {
+            it.first == it.second
+        }
         return if (containsAtLeastOneFailedResponse) Result.success() else Result.retry()
     }
 }

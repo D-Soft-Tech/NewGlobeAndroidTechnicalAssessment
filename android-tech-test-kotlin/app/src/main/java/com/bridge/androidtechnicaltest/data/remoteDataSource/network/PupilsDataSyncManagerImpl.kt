@@ -17,7 +17,7 @@ class PupilsDataSyncManagerImpl @Inject constructor(
     private val updatePupilUseCase: UpdatePupilRecordUseCase,
     private val deletePupilRecordUseCase: DeletePupilRecordUseCase
 ) : PupilsDataSyncManager {
-    override suspend fun syncData(): Boolean =
+    override suspend fun syncData(): Pair<Int, Int> =
         dbManager.fetchAllPendingUpdates().map {
             when (it.requiredAction) {
                 RequiredModificationAction.SHOULD_BE_CREATED -> {
@@ -36,5 +36,8 @@ class PupilsDataSyncManagerImpl @Inject constructor(
                     RepositoryResponse.Success("Successful")
                 }
             }
-        }.any { it is RepositoryResponse.Error }
+        }.let {
+            val successful = it.count { it1 -> it1 is RepositoryResponse.Success }
+            Pair(successful, it.size)
+        }
 }

@@ -17,8 +17,8 @@ class SyncPupilDataViewModel @Inject constructor(
     private val dataSynUseCase: SyncPupilDataUseCase,
     @IoDispatcherScope private val ioDispatcher: CoroutineContext
 ) : ViewModel() {
-    private val _syncDataResponse: MutableSharedFlow<UiState<Boolean>> = MutableSharedFlow()
-    val syncDataResponse: SharedFlow<UiState<Boolean>> get() = _syncDataResponse
+    private val _syncDataResponse: MutableSharedFlow<UiState<Pair<Int, Int>>> = MutableSharedFlow()
+    val syncDataResponse: SharedFlow<UiState<Pair<Int, Int>>> get() = _syncDataResponse
 
     fun synchronizeData() {
         viewModelScope.launch(ioDispatcher) {

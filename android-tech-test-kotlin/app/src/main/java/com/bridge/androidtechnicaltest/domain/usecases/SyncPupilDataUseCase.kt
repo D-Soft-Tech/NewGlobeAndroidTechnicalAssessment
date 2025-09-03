@@ -8,5 +8,5 @@ import javax.inject.Singleton
 class SyncPupilDataUseCase @Inject constructor(
     private val pupilsDataSyncManager: PupilsDataSyncManager
 ) {
-    suspend operator fun invoke(): Boolean = pupilsDataSyncManager.syncData()
+    suspend operator fun invoke(): Pair<Int, Int> = pupilsDataSyncManager.syncData()
 }
