@@ -14,6 +14,8 @@ object AppConstants {
     const val PUPIL_REMOTE_KEYS_TABLE_NAME = "PupilRemoteKeyTable"
     const val APP_DB_VERSION = 1
     const val APP_DB_NAME = "NewGlobe-db"
+    const val WORK_TIME_INTERVAL = 15L
+    const val WORKER_TAG = "String-Pupils-Data-Sync-Worker-Tag"
 
     private val requestId = "dda7feeb-20af-415e-887e-afc43f245624"
     private val userAgent = "Bridge Android Tech Test"
