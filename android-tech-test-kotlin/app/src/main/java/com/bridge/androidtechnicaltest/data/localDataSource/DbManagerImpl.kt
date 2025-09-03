@@ -55,6 +55,8 @@ class DbManagerImpl @Inject constructor(
             }
         )
 
+    override suspend fun fetchAllPendingUpdates(): List<PupilModel> = pupilDao.fetchAllPendingUpdates()
+
     override suspend fun fetchPupilById(pupilId: Int): PupilEntity =
         pupilDao.fetchPupilById(pupilId)
 

@@ -18,6 +18,9 @@ public interface PupilDao {
     @Query("SELECT * FROM PupilTable WHERE requiredAction != 'should_be_deleted' & name LIKE '%' || :pupilName || '%' ORDER BY pupilId ASC")
     fun fetchPupilsByName(pupilName: String): PagingSource<Int, PupilModel>
 
+    @Query("SELECT * FROM PupilTable WHERE modified = 1 ORDER BY pupilId ASC")
+    suspend fun fetchAllPendingUpdates(): List<PupilModel>
+
     @Query("SELECT * FROM PUPILTABLE WHERE pupilId = :pupilId")
     suspend fun fetchPupilById(pupilId: Int): PupilEntity
 

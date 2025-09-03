@@ -45,4 +45,7 @@
     <string name="loader_image">Loader image</string>
     <string name="failed">Failed!</string>
     <string name="successful">Successful</string>
+    <string name="sync_completed">Sync completed!</string>
+    <string name="all_data_successfully_backed_up">All your data has been successfully backed up to the server.</string>
+    <string name="_of_completed">%1s of %2s backed up to the server.</string>
 </resources>

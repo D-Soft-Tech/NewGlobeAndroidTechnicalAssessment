@@ -1,7 +1,7 @@
 package com.bridge.androidtechnicaltest.presentation.ui.fragments
 
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -21,6 +21,10 @@ import com.bridge.androidtechnicaltest.databinding.FragmentPupillistBinding
 import com.bridge.androidtechnicaltest.presentation.ui.adapters.PupilPagingAdapter
 import com.bridge.androidtechnicaltest.presentation.ui.adapters.PupilPagingAdapterFactory
 import com.bridge.androidtechnicaltest.presentation.viewModels.PupilListFragmentViewModel
+import com.bridge.androidtechnicaltest.presentation.viewModels.SyncPupilDataViewModel
+import com.bridge.androidtechnicaltest.utils.AppUtils
+import com.bridge.androidtechnicaltest.utils.AppUtils.createAlertDialog
+import com.bridge.androidtechnicaltest.utils.ExtensionFunctions.collectUiSharedFlow
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -38,6 +42,8 @@ class PupilListFragment : Fragment(), MenuProvider {
     lateinit var pupilPagingAdapterFactory: PupilPagingAdapterFactory
     private lateinit var pupilPagingAdapter: PupilPagingAdapter
     private val pupilsListViewModel: PupilListFragmentViewModel by viewModels()
+    private val syncDataViewModel: SyncPupilDataViewModel by viewModels()
+    private var loaderAlertDialog: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +57,7 @@ class PupilListFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        loaderAlertDialog = AppUtils.getLoadingAlertDialog(requireContext())
         pupilPagingAdapter = pupilPagingAdapterFactory.createPupilPagingAdapter {
             val action =
                 PupilListFragmentDirections.actionPupilListFragmentToPupilDetailFragment(it)
@@ -66,7 +73,9 @@ class PupilListFragment : Fragment(), MenuProvider {
 
         fab.setOnClickListener {
             val action =
-                PupilListFragmentDirections.actionPupilListFragmentToCreateOrEditPupilDetailsFragment(null)
+                PupilListFragmentDirections.actionPupilListFragmentToCreateOrEditPupilDetailsFragment(
+                    null
+                )
             findNavController().navigate(action)
         }
 
@@ -88,6 +97,35 @@ class PupilListFragment : Fragment(), MenuProvider {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        collectUiSharedFlow(
+            syncDataViewModel.syncDataResponse,
+            { loaderAlertDialog?.show() },
+            {
+                loaderAlertDialog?.dismiss()
+                requireContext().createAlertDialog(
+                    getString(R.string.sync_completed),
+                    it,
+                    null
+                ) {
+                    // do nothing
+                }.show()
+            }
+        ) {
+            val message =
+                if (it) getString(R.string.all_data_successfully_backed_up) else getString(R.string._of_completed)
+            loaderAlertDialog?.dismiss()
+            requireContext().createAlertDialog(
+                getString(R.string.sync_completed),
+                message,
+                null
+            ) {
+                // Do nothing
+            }.show()
+        }
+    }
+
     private fun initViews() {
         with(binding) {
             recyclerView = pupilList
@@ -102,7 +140,7 @@ class PupilListFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == R.id.action_reset) {
-            // Perform sync here
+            syncDataViewModel.synchronizeData()
         }
         return true
     }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bridge.androidtechnicaltest.data.remoteDataSource.network.SampleData.getEmptyPupilModel
+import com.bridge.androidtechnicaltest.data.remoteDataSource.network.SampleData
 import com.bridge.androidtechnicaltest.di.qualifiers.IoDispatcherScope
 import com.bridge.androidtechnicaltest.domain.models.PupilModel
 import com.bridge.androidtechnicaltest.domain.models.RepositoryResponse
@@ -135,19 +135,21 @@ class EditOrCreatePupilViewModel @Inject constructor(
         return updatedPupilModel === _oldDetails.value
     }
 
-    private fun getPupilModel(): PupilModel = _oldDetails.value?.let {
-        it.copy(
+    private fun getPupilModel(): PupilModel {
+        val updatedModel = (_oldDetails.value ?: SampleData.getEmptyPupilModel()).copy(
+            pupilId = pupilId.value.toString().toInt(),
             name = firstName.value.toString() + " " + lastName.value.toString(),
             pupilClass = pupilClass.value.toString(),
             guardianPhoneNumber = guardianPhone.value.toString(),
             country = country.value.toString(),
             address = address.value.toString()
-        ).let { it1 ->
-            age.value?.let { it2 ->
-                if (it2.isNotBlank()) {
-                    it.copy(age = it2.toInt())
-                } else it1
-            } ?: it1
+        )
+        return updatedModel.let {
+            age.value?.let { it1 ->
+                if (it1.isNotBlank()) {
+                    it.copy(age = it1.toInt())
+                } else it
+            } ?: it
         }
-    } ?: getEmptyPupilModel()
+    }
 }

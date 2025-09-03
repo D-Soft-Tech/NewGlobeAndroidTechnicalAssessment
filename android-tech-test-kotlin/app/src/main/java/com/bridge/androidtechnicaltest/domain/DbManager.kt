@@ -9,6 +9,8 @@ interface DbManager {
     fun getPupils(): Pager<Int, PupilModel>
     fun getPupilsByName(name: String): Pager<Int, PupilModel>
 
+    suspend fun fetchAllPendingUpdates(): List<PupilModel>
+
     suspend fun fetchPupilById(pupilId: Int): PupilEntity
 
     suspend fun deletePupilRecord(pupilId: Int): Int

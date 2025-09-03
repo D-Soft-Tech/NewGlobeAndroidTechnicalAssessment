@@ -28,7 +28,7 @@ class CreateNewPupilRecordUseCase @Inject constructor(
                 dbManager.insertPupils(listOf(modifiedModel))
             }
         }
-        return if (affectedRowsInDb >= 1) RepositoryResponse.Success("Deleted successfully") else RepositoryResponse.Error(
+        return if (affectedRowsInDb >= 1) RepositoryResponse.Success("Created successfully") else RepositoryResponse.Error(
             "An unexpected error occurred"
         )
     }
