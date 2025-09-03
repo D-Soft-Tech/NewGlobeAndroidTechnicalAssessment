@@ -40,6 +40,21 @@ class DbManagerImpl @Inject constructor(
             }
         )
 
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getPupilsByName(name: String): Pager<Int, PupilModel> =
+        Pager(config = PagingConfig(
+            pageSize = 5,
+            enablePlaceholders = false,
+            maxSize = 100,
+            prefetchDistance = 10,
+            initialLoadSize = 15
+        ),
+            remoteMediator = pupilsRemoteMediator,
+            pagingSourceFactory = {
+                pupilDao.fetchPupilsByName(name)
+            }
+        )
+
     override suspend fun fetchPupilById(pupilId: Int): PupilEntity =
         pupilDao.fetchPupilById(pupilId)
 

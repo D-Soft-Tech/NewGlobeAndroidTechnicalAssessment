@@ -1,5 +1,6 @@
 package com.bridge.androidtechnicaltest.di
 
+import com.bridge.androidtechnicaltest.data.remoteDataSource.PupilRepositoryImpl
 import com.bridge.androidtechnicaltest.data.remoteDataSource.network.AuthInterceptor
 import com.bridge.androidtechnicaltest.data.remoteDataSource.network.api.PupilApi
 import com.bridge.androidtechnicaltest.di.qualifiers.AppAgentIdScope
@@ -7,6 +8,7 @@ import com.bridge.androidtechnicaltest.di.qualifiers.AppRequestIdScope
 import com.bridge.androidtechnicaltest.di.qualifiers.AuthInterceptorScope
 import com.bridge.androidtechnicaltest.di.qualifiers.IoDispatcherScope
 import com.bridge.androidtechnicaltest.di.qualifiers.MainDispatcherScope
+import com.bridge.androidtechnicaltest.domain.repository.PupilRepository
 import com.bridge.androidtechnicaltest.utils.AppConstants
 import com.bridge.androidtechnicaltest.utils.AppConstants.BASE_URL
 import com.bridge.androidtechnicaltest.utils.AppConstants.LONG_30
@@ -76,6 +78,12 @@ object NetworkModule {
     ): Retrofit =
         Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient).build()
+
+    @Provides
+    @Singleton
+    fun providesPupilRepository(
+        pupilRepositoryImpl: PupilRepositoryImpl
+    ): PupilRepository = pupilRepositoryImpl
 
     @Provides
     @Singleton

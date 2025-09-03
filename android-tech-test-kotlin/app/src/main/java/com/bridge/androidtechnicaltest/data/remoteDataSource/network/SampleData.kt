@@ -1,5 +1,8 @@
 package com.bridge.androidtechnicaltest.data.remoteDataSource.network
 
+import com.bridge.androidtechnicaltest.domain.models.PupilModel
+import com.bridge.androidtechnicaltest.domain.models.enums.RequiredModificationAction
+
 object SampleData {
     fun getRandomPupilLocation(): PupilLocation = dummyPupilLocations.random()
     fun getRandomPupilClass(): String = dummyPupilClass.random()
@@ -61,6 +64,24 @@ object SampleData {
     )
 
     fun getRandomPupilAge(): Int = (3..14).random()
+
+    fun getEmptyPupilModel(): PupilModel {
+        val location = getRandomPupilLocation()
+        return PupilModel(
+            "",
+            "stringStringStringStringStringString",
+            location.lat,
+            location.long,
+            "",
+            0,
+            0,
+            getRandomPupilClass(),
+            getRandomGuardianPhoneNumber(),
+            getRandomGuardianAddress(),
+            false,
+            RequiredModificationAction.NONE_REQUIRED
+        )
+    }
 }
 
 data class PupilLocation(val lat: Double, val long: Double)

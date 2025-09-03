@@ -51,5 +51,14 @@
             app:argType="com.bridge.androidtechnicaltest.domain.models.PupilModel"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_createOrEditPupilDetailsFragment_to_pupilListFragment"
+            app:destination="@id/pupilListFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/pupilListFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

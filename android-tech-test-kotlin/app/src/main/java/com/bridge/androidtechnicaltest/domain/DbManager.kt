@@ -7,6 +7,7 @@ import com.bridge.androidtechnicaltest.domain.models.PupilModel
 interface DbManager {
     suspend fun insertPupils(pupils: List<PupilModel>): Int
     fun getPupils(): Pager<Int, PupilModel>
+    fun getPupilsByName(name: String): Pager<Int, PupilModel>
 
     suspend fun fetchPupilById(pupilId: Int): PupilEntity
 

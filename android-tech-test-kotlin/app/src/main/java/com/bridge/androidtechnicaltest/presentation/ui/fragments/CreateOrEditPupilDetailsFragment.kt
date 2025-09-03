@@ -1,10 +1,10 @@
 package com.bridge.androidtechnicaltest.presentation.ui.fragments
 
 import android.app.Activity
+import android.app.Dialog
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +18,9 @@ import com.bridge.androidtechnicaltest.R
 import com.bridge.androidtechnicaltest.databinding.FragmentEditPupilDetailsBinding
 import com.bridge.androidtechnicaltest.presentation.ui.adapters.loadImageUri
 import com.bridge.androidtechnicaltest.presentation.viewModels.EditOrCreatePupilViewModel
+import com.bridge.androidtechnicaltest.utils.AppUtils.createAlertDialog
+import com.bridge.androidtechnicaltest.utils.AppUtils.getLoadingAlertDialog
+import com.bridge.androidtechnicaltest.utils.ExtensionFunctions.collectUiSharedFlow
 import com.bridge.androidtechnicaltest.utils.ExtensionFunctions.convertToString
 import com.bridge.androidtechnicaltest.utils.ExtensionFunctions.showSnackBarMessage
 import com.example.softcam.utils.SoftCam
@@ -28,7 +31,7 @@ class CreateOrEditPupilDetailsFragment : Fragment() {
     private lateinit var binding: FragmentEditPupilDetailsBinding
     private val args: CreateOrEditPupilDetailsFragmentArgs by navArgs()
     private val editOrCreatePupilViewModel: EditOrCreatePupilViewModel by viewModels()
-    private var imageBase64: String = ""
+    private var loaderAlertDialog: Dialog? = null
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -41,8 +44,11 @@ class CreateOrEditPupilDetailsFragment : Fragment() {
                     imageUri?.let { uri ->
                         if (uri.toString().isNotBlank()) {
                             binding.profilePicture.loadImageUri(uri)
-                            imageBase64 = uri.convertToString(requireContext())
-                            Log.d("CAPTURED_IMG_STR==>", imageBase64)
+                            editOrCreatePupilViewModel.setImageBase64String(
+                                uri.convertToString(
+                                    requireContext()
+                                )
+                            )
                         } else showSnackBarMessage(
                             getString(R.string.image_capture_failed_retry),
                             true
@@ -84,6 +90,7 @@ class CreateOrEditPupilDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loaderAlertDialog = getLoadingAlertDialog(requireContext())
         args.pupilModel?.let {
             editOrCreatePupilViewModel.setPupilData(it)
         }
@@ -92,6 +99,72 @@ class CreateOrEditPupilDetailsFragment : Fragment() {
         }
         binding.imageView.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.button.setOnClickListener {
+            // If no argument was passed to the navArgs, then it is create otherwise it is update
+            args.pupilModel?.let {
+                editOrCreatePupilViewModel.createOrEditPupil(false)
+            } ?: run {
+                editOrCreatePupilViewModel.createOrEditPupil(true)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Collect CreatePupilSharedFlow
+        collectUiSharedFlow(
+            editOrCreatePupilViewModel.createRecordFlow,
+            { loaderAlertDialog?.show() },
+            {
+                loaderAlertDialog?.dismiss()
+                requireContext().createAlertDialog(
+                    getString(R.string.failed),
+                    it,
+                    null
+                ) {
+                    // do nothing
+                }.show()
+            }
+        ) {
+            loaderAlertDialog?.dismiss()
+            requireContext().createAlertDialog(
+                getString(R.string.successful),
+                it,
+                null
+            ) {
+                val action =
+                    CreateOrEditPupilDetailsFragmentDirections.actionCreateOrEditPupilDetailsFragmentToPupilListFragment()
+                findNavController().navigate(action)
+            }.show()
+        }
+
+        // Collect CreatePupilSharedFlow
+        collectUiSharedFlow(
+            editOrCreatePupilViewModel.updateRecordFlow,
+            { loaderAlertDialog?.show() },
+            {
+                loaderAlertDialog?.dismiss()
+                requireContext().createAlertDialog(
+                    getString(R.string.failed),
+                    it,
+                    null
+                ) {
+                    // do nothing
+                }.show()
+            }
+        ) {
+            loaderAlertDialog?.dismiss()
+            requireContext().createAlertDialog(
+                getString(R.string.successful),
+                it,
+                null
+            ) {
+                val action =
+                    CreateOrEditPupilDetailsFragmentDirections.actionCreateOrEditPupilDetailsFragmentToPupilListFragment()
+                findNavController().navigate(action)
+            }.show()
         }
     }
 }

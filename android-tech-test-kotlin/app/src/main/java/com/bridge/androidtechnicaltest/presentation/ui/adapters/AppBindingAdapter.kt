@@ -2,14 +2,18 @@ package com.bridge.androidtechnicaltest.presentation.ui.adapters
 
 import android.net.Uri
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.bridge.androidtechnicaltest.R
+import com.bridge.androidtechnicaltest.presentation.viewModels.EditOrCreatePupilViewModel
 import com.bridge.androidtechnicaltest.utils.AppUtils.base64StringToBitmap
+import com.google.android.material.textfield.TextInputEditText
 
 @BindingAdapter("android:loadImageUri")
 fun ImageView.loadImageUri(imageUri: Uri?) {
@@ -83,8 +87,25 @@ fun ImageView.loadProfilePictureBase64(
 @BindingAdapter("android:disableIfEditRecord")
 fun View.disableIfEditRecord(pageTitle: String?) {
     pageTitle?.let {
-        isClickable = !it.contains("edit", true)
-        isFocusable = !it.contains("edit", true)
         isEnabled = !it.contains("edit", true)
+    }
+}
+
+@BindingAdapter("submitButton", "editOrCreateViewModel")
+fun TextInputEditText.enableSubmitButton(
+    submitButton: Button,
+    editOrCreateViewModel: EditOrCreatePupilViewModel
+) {
+    this.doOnTextChanged { text, _, _, _ ->
+        text?.let {
+            if (it.isNotBlank()) {
+                val hasInputChanged = editOrCreateViewModel.hasPupilRecordsBeenUpdated()
+                if (hasInputChanged) {
+                    submitButton.isEnabled = true
+                }
+            } else {
+                submitButton.isEnabled = false
+            }
+        }
     }
 }

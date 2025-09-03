@@ -1,13 +1,17 @@
 package com.bridge.androidtechnicaltest.utils
 
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Base64
 import androidx.appcompat.app.AlertDialog
 import com.bridge.androidtechnicaltest.R
 import com.bridge.androidtechnicaltest.data.remoteDataSource.network.SampleData
 import com.bridge.androidtechnicaltest.data.remoteDataSource.network.dtos.requests.PupilRequestDTO
+import com.bridge.androidtechnicaltest.domain.models.PupilModel
 
 object AppUtils {
     fun base64StringToBitmap(base64String: String): Bitmap? =
@@ -52,4 +56,13 @@ object AppUtils {
             onCancelClicked?.invoke()
         }
         .create()
+
+    fun getLoadingAlertDialog(context: Context): Dialog = Dialog(context).apply {
+        setContentView(R.layout.fragment_loading_dialog)
+        window?.apply {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+        setCancelable(false)
+        create()
+    }
 }

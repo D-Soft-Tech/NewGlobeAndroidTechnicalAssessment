@@ -166,8 +166,6 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/last_name"
                         android:inputType="text"
-                        android:focusable="false"
-                        android:editable="false"
                         android:disableIfEditRecord="@{pageTitle}"
                         android:text="@={editViewModel.lastName}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -296,9 +294,10 @@
                     android:layout_marginTop="@dimen/dimen_30dp"
                     android:layout_marginBottom="@dimen/dimen_40dp"
                     android:background="@drawable/submit_btn_bg"
-                    android:enabled="false"
                     android:fontFamily="@font/poppins_bold"
                     android:text="@string/submit"
+                    android:enabled="@{editViewModel.allFieldsField}"
+                    tools:enabled="false"
                     android:textColor="@color/toggle_text_color_with_state"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

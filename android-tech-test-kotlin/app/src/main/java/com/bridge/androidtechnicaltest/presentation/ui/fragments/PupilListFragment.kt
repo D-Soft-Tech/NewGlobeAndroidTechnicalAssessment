@@ -1,6 +1,7 @@
 package com.bridge.androidtechnicaltest.presentation.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -75,9 +76,16 @@ class PupilListFragment : Fragment(), MenuProvider {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    pupilsListViewModel.searchPupilByName(it)
+                }
                 return true
             }
         })
+        searchView.setOnCloseListener {
+            pupilsListViewModel.searchPupilByName("")
+            true
+        }
     }
 
     private fun initViews() {

@@ -12,8 +12,11 @@ public interface PupilDao {
     @Upsert
     suspend fun insertPupils(pupils: List<PupilEntity>): List<Long>
 
-    @Query("SELECT * FROM PupilTable ORDER BY pupilId ASC")
+    @Query("SELECT * FROM PupilTable WHERE requiredAction != 'should_be_deleted' ORDER BY pupilId ASC")
     fun fetchPupils(): PagingSource<Int, PupilModel>
+
+    @Query("SELECT * FROM PupilTable WHERE requiredAction != 'should_be_deleted' & name LIKE '%' || :pupilName || '%' ORDER BY pupilId ASC")
+    fun fetchPupilsByName(pupilName: String): PagingSource<Int, PupilModel>
 
     @Query("SELECT * FROM PUPILTABLE WHERE pupilId = :pupilId")
     suspend fun fetchPupilById(pupilId: Int): PupilEntity
