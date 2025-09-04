@@ -15,7 +15,7 @@ class CreateNewPupilRecordUseCase @Inject constructor(
     private val dbManager: DbManager
 ) {
     suspend operator fun invoke(pupilModel: PupilModel): RepositoryResponse<String> {
-        return when (val serverResponse = repository.createAPupil(pupilModel.copy(image = getRandomProfileImage()))) {
+        return when (val serverResponse = repository.createAPupil(pupilModel)) {
             is RepositoryResponse.Success -> {
                 val serverResultWithUpdatedId = serverResponse.data
                 RepositoryResponse.Success("Created successfully")

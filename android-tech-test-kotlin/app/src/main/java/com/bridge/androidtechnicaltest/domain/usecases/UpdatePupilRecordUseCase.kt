@@ -15,7 +15,7 @@ class UpdatePupilRecordUseCase @Inject constructor(
     private val dbManager: DbManager
 ) {
     suspend operator fun invoke(pupilModel: PupilModel): RepositoryResponse<String> =
-        when (val remoteResponse = repository.updatePupilRecord(pupilModel.copy(image = getRandomProfileImage()))) {
+        when (val remoteResponse = repository.updatePupilRecord(pupilModel)) {
             is RepositoryResponse.Success -> {
                 val modifiedData = pupilModel.copy(
                     modified = false,

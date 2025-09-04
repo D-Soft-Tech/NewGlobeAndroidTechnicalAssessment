@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bridge.androidtechnicaltest.R
+import com.bridge.androidtechnicaltest.data.remoteDataSource.network.SampleData
 import com.bridge.androidtechnicaltest.databinding.FragmentEditPupilDetailsBinding
 import com.bridge.androidtechnicaltest.presentation.ui.adapters.loadImageUri
 import com.bridge.androidtechnicaltest.presentation.viewModels.EditOrCreatePupilViewModel
@@ -45,9 +46,7 @@ class CreateOrEditPupilDetailsFragment : Fragment() {
                         if (uri.toString().isNotBlank()) {
                             binding.profilePicture.loadImageUri(uri)
                             editOrCreatePupilViewModel.setImageBase64String(
-                                uri.convertToString(
-                                    requireContext()
-                                )
+                                SampleData.getRandomProfileImage()
                             )
                         } else showSnackBarMessage(
                             getString(R.string.image_capture_failed_retry),

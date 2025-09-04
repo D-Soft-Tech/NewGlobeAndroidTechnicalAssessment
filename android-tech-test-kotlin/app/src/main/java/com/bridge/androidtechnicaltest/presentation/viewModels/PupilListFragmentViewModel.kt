@@ -18,8 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PupilListFragmentViewModel @Inject constructor(
     private val pupilsListUseCase: PupilsListUseCase,
-    private val searchPupilByNameUseCase: SearchPupilByNameUseCase,
-    private val pupilApi: PupilApi,
+    private val searchPupilByNameUseCase: SearchPupilByNameUseCase
 ) : ViewModel() {
     private val searchQuery: MutableStateFlow<String> = MutableStateFlow("")
 

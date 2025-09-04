@@ -38,14 +38,14 @@ fun ImageView.loadImageUri(imageUri: Uri?) {
 @BindingAdapter("android:loadImageFromUrl")
 fun ImageView.loadImageFromUrl(imageUrl: String?) {
     imageUrl?.let {
-        base64StringToBitmap(it)?.let { bitMap ->
-            load(bitMap) {
-                crossfade(true)
-                placeholder(R.drawable.animated_loader_drawable)
-                fallback(R.drawable.boy)
-                transformations(CircleCropTransformation())
-            }
-        } ?: run { loadImageUri(null) }
+        val data =
+            if (it.contains("https", true) && !it.contains("lorem", true)) it else R.drawable.boy
+        load(data) {
+            crossfade(true)
+            placeholder(R.drawable.animated_loader_drawable)
+            fallback(R.drawable.boy)
+            transformations(CircleCropTransformation())
+        }
     } ?: run {
         loadImageUri(null)
     }
