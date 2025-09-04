@@ -1,52 +1,46 @@
-![Bridge International Academies Logo](BannerLogo280x60.png)
+<h1 align="center">Android Technical Test Submission (Adebayo Oloyede)</h1>
 
-# Android Technical Test
+<p align="center">
+  <a href="https://www.android.com/"><img alt="Platform" src="https://img.shields.io/badge/Platform-Android-white"/></a>
+  <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
+  <a href="https://android-arsenal.com/api?level=21"><img alt="API" src="https://img.shields.io/badge/API-21%2B-yellow.svg?style=flat"/></a>
+  <a href="https://github.com/abdulwahabhassan/peng/actions"><img alt="Build Status" src="https://github.com/abdulwahabhassan/peng/workflows/Build/badge.svg"/></a> 
+</p>
 
-## Objective
+## Preview
 
-Below are a set of requirements from a business owner within Bridge International Academies, relating to a need to be able to administer pupil information from a mobile application.  The basic framework of the application already exists, but needs to be extended with the some or all of the given requirements.
+|                                                                |                                                    |                                                               |                                                             |
+|----------------------------------------------------------------|----------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------|
+| ![Pupils List](screenshots/pupils_list.jpeg)                   | ![Pupil Details](screenshots/details_page.jpeg)    | ![Delete Record](screenshots/about_to_delete.jpeg)            | ![Create Pupil](screenshots/create_pupil_empty_fields.jpeg) |
+| ----------------------------------------------                 | -------------------------------------              | ----------------------------------------                      | -------------------------------------------------           |
+| ![Create Pupil Entered Details](screenshots/create_pupil.jpeg) | ![Pupil Details](screenshots/capture_picture.jpeg) | ![Delete Record](screenshots/create_pupil_capture_image.jpeg) | ![Create Pupil](screenshots/processing.jpeg)                |
 
-We assess a number of things including the design of your solution and your programming skills. While these are small problems, we expect you to submit what you believe is production-quality code – code that you’d be able to run, maintain, and evolve, including any tests that you would normally write as part of the development process. You don’t need to gold plate your solution; you do not have to complete all requirements; please submit when you are happy that you have demonstrated your ability to deliver within the alloted time frame.
+## Technologies Used
+- [Kotlin](https://kotlinlang.org/), [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) to handle all asynchronous network operations and long-running background processes.
 
-As a general rule, we allow three days from the date that you receive these instructions to submit your code, but you may request more time if needed. It is not required that all requirements are completed within this time period.  Please submit the exercise when you are happy with that you have demonstrated 
+- ViewModel - Manages UI-related data-holders to help the UI-components (Fragments and activity) survive configuration changes.
 
-If you have any questions about the code as it relates to your interview process, please contact us.
+- Navigation Component - Used to handle UI navigations. I made use of single activity architecture with reuseable fragments. Navigation components was used to handle the navigation between the fragments.
 
+- DataBinding - Used to generate binding claesses for XML layouts and also used to bind states to the User interfaces.
 
-## Technical Test API
+- StateFlow and SharedFlow - These are the observable data holder classes used on the application
 
-The Technical Test API is a RESTful web service that makes uses of basic HTTP GET, POST, PUT and DELETE calls. The API documentation can be accessed [here](https://androidtechnicaltestapi-test.bridgeinternationalacademies.com/swagger/index.html).
+- Room Database - This was used to handle local caching of the remote data on the application thereby enabling the application to work seamlessly offline.
 
-![Technical Test API](TechnicalTestAPI.png)
+- DaggerHilt - This is the Dependency injection framework used on the application.
 
-### Swagger
+- Paging3 - To handle the lazy loading of data from the server.
 
-Upon visiting the API documentation page, you will see the following page where you can see a short description of the API, followed by the resources it provides and a list of all the actions that can be performed on them. You can also try out the API directly from the web browser. The API exposes a standard [Swagger](http://swagger.io/) endpoint.
+- Coil (Coroutine Image Loader) - Used for loading of images on the app.
 
-### Real World Simulation
+- [Retrofit2 & OkHttp3]((https://github.com/square/retrofit)) - Used as the REST API clients
+- Gson - Used to serialize and deserialize JSON objects
+- DSoftCam - This is a camera library developed by my humbleself. It is built untop of [CameraX](https://developer.android.com/media/camera/camerax), [Google Vision]() and [Google MLKit](https://developer.android.com/ai/gemini-nano/ml-kit-genai). This was used to seamlessly handle the capturing of the pupils' profile image.
 
-The API attempts to simulate real world usage in several ways:
+## App Architecture
+This app is built on the MVVM architecture, Clean Architecture and the Repository pattern.
 
-1. Occasionally real web services go down due to any number of reasons. The Technical Test API will occasionally throw errors. Your app will need to deal with this.
-2. To simulate bad network connectivity or the server being under intense load, the Technical Test API will sometimes take a few seconds to respond.
-3. To simulate other users creating, updating and deleting data the Technical Test API will sometimes create, update or delete pupils from its internal database.
-
-### Validation
-
-Pupils have several fields, including Name, Country, Image, Latitude and Longitude. To insert or update a pupil, these fields values must be valid for the Technical Test API to accept them. If they are invalid the API will return a standard 400 Bad Request error response.
-
-## App Requirements
-
-The requirements from the business owner are:
-
-1. I need to be able to see a list of all pupils.
-2. I need to be able to add a new pupil and submit.
-3. The above requirements should continue when I am offline.  With data synchronising when I'm next online.
-
-In addition, you should also:
-
-1. Write a short ReadMe about your code, your design, assumptions made and which requirements are implemented.
-2. Write production quality code.
-3. Submit your source code as a .zip file. Also, do not include any binary files in your final solution.
-
-## Good Luck!
+<p align="center">
+<a href="https://developer.android.com/topic/architecture/"><img alt="Webpage" src="https://koenig-media.raywenderlich.com/uploads/2020/05/final-architecture-650x488.png"/></a> 
+</p>
