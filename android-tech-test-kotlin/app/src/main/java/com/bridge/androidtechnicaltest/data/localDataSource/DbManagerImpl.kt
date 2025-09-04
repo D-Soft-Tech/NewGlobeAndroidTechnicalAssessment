@@ -51,7 +51,7 @@ class DbManagerImpl @Inject constructor(
         ),
             remoteMediator = pupilsRemoteMediator,
             pagingSourceFactory = {
-                pupilDao.fetchPupilsByName(name)
+                pupilDao.fetchPupilsByName("%${name.trim()}%")
             }
         )
 

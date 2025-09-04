@@ -104,6 +104,7 @@
                     android:layout_marginTop="@dimen/dimen_20dp"
                     app:errorTextAppearance="@style/ErrorTextAppearance"
                     app:helperTextTextAppearance="@style/HelperTextAppearance"
+                    android:infoMessage="@{pupilId}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profile_picture">
@@ -210,7 +211,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/guardian_phone"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:text="@={editViewModel.guardianPhone}" />
                 </com.google.android.material.textfield.TextInputLayout>
 

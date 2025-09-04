@@ -10,4 +10,5 @@
     <color name="light_sky_blue">#f8f9ff</color>
     <color name="disabled">#F6F6F6</color>
     <color name="lighter_grey">#797979</color>
+    <color name="info_blue">#2196F3</color>
 </resources>

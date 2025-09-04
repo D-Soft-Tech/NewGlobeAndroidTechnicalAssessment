@@ -12,7 +12,7 @@ import java.io.IOException
 fun <T> getServerResponse(result: Response<T>): RepositoryResponse<T> {
     return when {
         result.isSuccessful && result.body() != null -> RepositoryResponse.Success(result.body()!! as T)
-        (result.code() in 400..499) -> RepositoryResponse.ApiError(result.message()) // Catches Client Errors
+        (result.code() in 400..499) -> RepositoryResponse.Error(result.message()) // Catches Client Errors
         result.code() >= 500 -> RepositoryResponse.ApiError(result.message()) // Handles Server Errors
         else -> {
             val apiError = result.errorBody()?.let { handleApiHttpException(it) }

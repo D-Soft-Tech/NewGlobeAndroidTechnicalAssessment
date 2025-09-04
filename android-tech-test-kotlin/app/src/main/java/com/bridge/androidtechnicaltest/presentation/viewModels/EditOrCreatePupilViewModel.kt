@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bridge.androidtechnicaltest.data.remoteDataSource.network.SampleData
+import com.bridge.androidtechnicaltest.data.remoteDataSource.network.SampleData.getRandomProfileImage
 import com.bridge.androidtechnicaltest.di.qualifiers.IoDispatcherScope
 import com.bridge.androidtechnicaltest.domain.models.PupilModel
 import com.bridge.androidtechnicaltest.domain.models.RepositoryResponse
@@ -74,7 +75,7 @@ class EditOrCreatePupilViewModel @Inject constructor(
         var pupilModel = getPupilModel()
         if (imageBase64.value.isNullOrBlank()) {
             if (pupilModel.image.isNotBlank()) {
-                pupilModel = pupilModel.copy(image = "stringStringStringStringStringStringString")
+                pupilModel = pupilModel.copy(image = getRandomProfileImage())
             }
         } else {
             pupilModel = pupilModel.copy(image = imageBase64.value!!)

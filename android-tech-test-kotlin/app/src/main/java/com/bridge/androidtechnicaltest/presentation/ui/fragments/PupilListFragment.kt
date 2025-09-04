@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -54,6 +55,7 @@ class PupilListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         binding.toolbar.inflateMenu(R.menu.main_menu)
+        binding.toolbar.overflowIcon?.setTint(ContextCompat.getColor(requireContext(), R.color.white))
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_reset -> {

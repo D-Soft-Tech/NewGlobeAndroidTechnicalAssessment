@@ -70,7 +70,7 @@ class PupilRepositoryImpl @Inject constructor(
             RepositoryResponse.Success("Record deleted successfully")
         } else {
             when {
-                (result.code() in 400..499) -> RepositoryResponse.ApiError(result.message()) // Catches Client Errors
+                (result.code() in 400..499) -> RepositoryResponse.Error(result.message()) // Catches Client Errors
                 result.code() >= 500 -> RepositoryResponse.ApiError(result.message()) // Handles Server Errors
                 else -> {
                     val apiError = result.errorBody()?.let { handleApiHttpException(it) }

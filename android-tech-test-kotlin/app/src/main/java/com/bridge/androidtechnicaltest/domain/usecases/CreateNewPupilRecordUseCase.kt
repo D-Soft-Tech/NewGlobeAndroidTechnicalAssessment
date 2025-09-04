@@ -1,5 +1,6 @@
 package com.bridge.androidtechnicaltest.domain.usecases
 
+import com.bridge.androidtechnicaltest.data.remoteDataSource.network.SampleData.getRandomProfileImage
 import com.bridge.androidtechnicaltest.domain.DbManager
 import com.bridge.androidtechnicaltest.domain.models.PupilModel
 import com.bridge.androidtechnicaltest.domain.models.RepositoryResponse
@@ -14,22 +15,30 @@ class CreateNewPupilRecordUseCase @Inject constructor(
     private val dbManager: DbManager
 ) {
     suspend operator fun invoke(pupilModel: PupilModel): RepositoryResponse<String> {
-        val affectedRowsInDb = when (val serverResponse = repository.createAPupil(pupilModel)) {
+        return when (val serverResponse = repository.createAPupil(pupilModel.copy(image = getRandomProfileImage()))) {
             is RepositoryResponse.Success -> {
                 val serverResultWithUpdatedId = serverResponse.data
-                dbManager.insertPupils(listOf(serverResultWithUpdatedId))
+                RepositoryResponse.Success("Created successfully")
+                val affectedRow = dbManager.insertPupils(listOf(serverResultWithUpdatedId))
+                if (affectedRow >= 1) RepositoryResponse.Success("Created successfully") else RepositoryResponse.Success(
+                    "An unexpected error occurred"
+                )
             }
 
-            else -> {
+            is RepositoryResponse.Error -> {
+                RepositoryResponse.Error(serverResponse.errorMessage)
+            }
+
+            is RepositoryResponse.ApiError -> {
                 val modifiedModel = pupilModel.copy(
                     modified = true,
                     requiredAction = RequiredModificationAction.SHOULD_BE_CREATED
                 )
-                dbManager.insertPupils(listOf(modifiedModel))
+                val affectedRows = dbManager.insertPupils(listOf(modifiedModel))
+                if (affectedRows >= 1) RepositoryResponse.Success("Created successfully") else RepositoryResponse.Success(
+                    "An unexpected error occurred"
+                )
             }
         }
-        return if (affectedRowsInDb >= 1) RepositoryResponse.Success("Created successfully") else RepositoryResponse.Error(
-            "An unexpected error occurred"
-        )
     }
 }

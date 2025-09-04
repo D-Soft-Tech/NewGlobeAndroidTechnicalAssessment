@@ -48,4 +48,5 @@
     <string name="sync_completed">Sync completed!</string>
     <string name="all_data_successfully_backed_up">All your data has been successfully backed up to the server.</string>
     <string name="_of_completed">%1s of %2s backed up to the server.</string>
+    <string name="this_id_is_not_final">This ID is not final, and could be changed by the server</string>
 </resources>

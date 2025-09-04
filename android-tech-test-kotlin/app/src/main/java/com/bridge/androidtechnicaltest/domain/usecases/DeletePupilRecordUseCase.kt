@@ -20,6 +20,10 @@ class DeletePupilRecordUseCase @Inject constructor(
                 if (rowsAffected >= 1) RepositoryResponse.Success("Deleted successfully") else RepositoryResponse.Error("An unexpected error occurred")
             }
 
+            is RepositoryResponse.Error -> {
+                RepositoryResponse.Error(remoteResponse.errorMessage)
+            }
+
             else -> {
                 val modifiedModel = pupilModel.copy(
                     modified = true,
