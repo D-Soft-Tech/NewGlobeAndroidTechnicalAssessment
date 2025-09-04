@@ -15,7 +15,7 @@ public interface PupilDao {
     @Query("SELECT * FROM PupilTable WHERE requiredAction != 'should_be_deleted' ORDER BY pupilId ASC")
     fun fetchPupils(): PagingSource<Int, PupilModel>
 
-    @Query("SELECT * FROM PupilTable WHERE requiredAction != 'should_be_deleted' & LOWER(name) LIKE LOWER(:pupilName) ORDER BY pupilId ASC")
+    @Query("SELECT * FROM PupilTable WHERE LOWER(name) LIKE LOWER(:pupilName) AND requiredAction != 'should_be_deleted' ORDER BY pupilId ASC")
     fun fetchPupilsByName(pupilName: String): PagingSource<Int, PupilModel>
 
     @Query("SELECT * FROM PupilTable WHERE modified = 1 ORDER BY pupilId ASC")
