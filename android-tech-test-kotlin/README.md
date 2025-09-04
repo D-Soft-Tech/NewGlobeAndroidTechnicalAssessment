@@ -12,7 +12,6 @@
 |                                                                |                                                    |                                                               |                                                             |
 |----------------------------------------------------------------|----------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------|
 | ![Pupils List](screenshots/pupils_list.jpeg)                   | ![Pupil Details](screenshots/details_page.jpeg)    | ![Delete Record](screenshots/about_to_delete.jpeg)            | ![Create Pupil](screenshots/create_pupil_empty_fields.jpeg) |
-| ----------------------------------------------                 | -------------------------------------              | ----------------------------------------                      | -------------------------------------------------           |
 | ![Create Pupil Entered Details](screenshots/create_pupil.jpeg) | ![Pupil Details](screenshots/capture_picture.jpeg) | ![Delete Record](screenshots/create_pupil_capture_image.jpeg) | ![Create Pupil](screenshots/processing.jpeg)                |
 
 ## Technologies Used
