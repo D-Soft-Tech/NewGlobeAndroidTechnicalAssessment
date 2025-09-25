@@ -29,7 +29,7 @@ class PupilRepositoryImpl @Inject constructor(
                 is RepositoryResponse.Error -> RepositoryResponse.Error(serverResponse.errorMessage)
             }
         } catch (e: Exception) {
-            RepositoryResponse.Error((handleException<PupilModel>(e) as RepositoryResponse.Error).errorMessage)
+            handleException(e)
         }
 
     override suspend fun createAPupil(pupil: PupilModel): RepositoryResponse<PupilModel> =
@@ -44,7 +44,7 @@ class PupilRepositoryImpl @Inject constructor(
                 is RepositoryResponse.Error -> RepositoryResponse.Error(serverResponse.errorMessage)
             }
         } catch (e: Exception) {
-            RepositoryResponse.Error((handleException<PupilModel>(e) as RepositoryResponse.Error).errorMessage)
+            handleException(e)
         }
 
     override suspend fun updatePupilRecord(
@@ -79,6 +79,6 @@ class PupilRepositoryImpl @Inject constructor(
             }
         }
     } catch (e: Exception) {
-        RepositoryResponse.Error((handleException<PupilModel>(e) as RepositoryResponse.Error).errorMessage)
+        handleException(e)
     }
 }
