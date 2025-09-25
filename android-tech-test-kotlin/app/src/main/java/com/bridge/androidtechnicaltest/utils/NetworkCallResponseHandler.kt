@@ -3,9 +3,11 @@ package com.bridge.androidtechnicaltest.utils
 import com.bridge.androidtechnicaltest.data.remoteDataSource.network.dtos.responses.ApiErrorResponse
 import com.bridge.androidtechnicaltest.domain.models.RepositoryResponse
 import com.bridge.androidtechnicaltest.utils.AppConstants.INTERNET_ERROR
+import com.bridge.androidtechnicaltest.utils.AppConstants.SERVER_ERROR
 import com.bridge.androidtechnicaltest.utils.AppConstants.UN_EXPECTED_ERROR
 import com.google.gson.GsonBuilder
 import okhttp3.ResponseBody
+import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
@@ -24,6 +26,7 @@ fun <T> getServerResponse(result: Response<T>): RepositoryResponse<T> {
 fun <T> handleException(e: Exception): RepositoryResponse<T> {
     return when (e) {
         is IOException -> RepositoryResponse.ApiError(INTERNET_ERROR)
+        is HttpException -> RepositoryResponse.ApiError(SERVER_ERROR)
         else -> RepositoryResponse.Error(e.message.toString())
     }
 }

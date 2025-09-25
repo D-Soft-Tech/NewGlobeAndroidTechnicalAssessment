@@ -5,6 +5,7 @@ object AppConstants {
     const val DEFAULT_COUNTRY = "NIGERIA"
     const val UN_EXPECTED_ERROR = "An unexpected error occurred"
     const val INTERNET_ERROR = "No internet connection"
+    const val SERVER_ERROR = "Server error"
     const val REQUEST_ID_TAG = "X-Request-ID"
     const val AGENT_ID_TAG = "User-Agent"
     const val REQUEST_ID = "fa36c955-5f1c-439f-8441-36f581a0faa1"

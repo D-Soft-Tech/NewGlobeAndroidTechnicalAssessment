@@ -61,7 +61,7 @@ class PupilRepositoryImpl @Inject constructor(
                 is RepositoryResponse.Error -> RepositoryResponse.Error(serverResponse.errorMessage)
             }
         } catch (e: Exception) {
-            RepositoryResponse.Error((handleException<PupilModel>(e) as RepositoryResponse.Error).errorMessage)
+            handleException(e)
         }
 
     override suspend fun deletePupilRecord(pupil: PupilModel): RepositoryResponse<String> = try {
