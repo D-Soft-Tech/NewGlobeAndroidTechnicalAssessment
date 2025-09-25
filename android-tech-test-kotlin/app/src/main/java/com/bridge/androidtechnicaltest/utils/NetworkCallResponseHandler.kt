@@ -23,7 +23,7 @@ fun <T> getServerResponse(result: Response<T>): RepositoryResponse<T> {
 
 fun <T> handleException(e: Exception): RepositoryResponse<T> {
     return when (e) {
-        is IOException -> RepositoryResponse.Error(INTERNET_ERROR)
+        is IOException -> RepositoryResponse.ApiError(INTERNET_ERROR)
         else -> RepositoryResponse.Error(e.message.toString())
     }
 }

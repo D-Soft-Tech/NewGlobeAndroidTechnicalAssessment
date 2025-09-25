@@ -22,7 +22,7 @@ class UpdatePupilRecordUseCase @Inject constructor(
                     requiredAction = RequiredModificationAction.NONE_REQUIRED
                 )
                 val rows = dbManager.insertPupils(listOf(modifiedData))
-                if (rows >= 1) RepositoryResponse.Success("Created successfully") else RepositoryResponse.Success(
+                if (rows >= 1) RepositoryResponse.Success("Updated successfully") else RepositoryResponse.Success(
                     "An unexpected error occurred"
                 )
             }
@@ -37,7 +37,7 @@ class UpdatePupilRecordUseCase @Inject constructor(
                     requiredAction = RequiredModificationAction.SHOULD_BE_UPDATED
                 )
                 val rowsAffected = dbManager.insertPupils(listOf(modifiedData))
-                if (rowsAffected >= 1) RepositoryResponse.Success("Created successfully") else RepositoryResponse.Success(
+                if (rowsAffected >= 1) RepositoryResponse.Success("Updated successfully") else RepositoryResponse.Success(
                     "An unexpected error occurred"
                 )
             }
